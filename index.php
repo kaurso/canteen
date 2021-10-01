@@ -19,8 +19,9 @@ else{
     </head>
 
     <body>
+    <!-- This is a comment to show changes to VCS-->
     <div id="logo">
-        <a href="index.php"><img class="logo" src="images/WGC.png" width="125px" height="125px" alt="Image of logo"></a>
+        <a href="index.php"><img class="logo" src="images/WGC.png" width="125px" height="125px" alt="Image of WGC logo"></a>
     </div>
         <header>
             <nav>
