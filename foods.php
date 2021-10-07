@@ -102,16 +102,16 @@ if (isset($_POST['manage'])){
     switch( $_POST['manage'] ){
 
         case 'priceHL':
-            $query = ' SELECT foodID, food, cost,calories FROM foods ORDER BY cost ASC';
+            $query = ' SELECT foodID, food, cost,calories, gluten, vegetarian, vegan FROM foods ORDER BY cost ASC';
             break;
         case 'priceLH':
-            $query = ' SELECT foodID, food, cost,calories FROM foods ORDER BY cost DESC';
+            $query = ' SELECT foodID, food, cost,calories, gluten, vegetarian, veganFROM foods ORDER BY cost DESC';
             break;
         case 'caloriesHL':
-            $query = ' SELECT foodID, food, cost,calories FROM foods ORDER BY calories ASC';
+            $query = ' SELECT foodID, food, cost,calories, gluten, vegetarian, vegan FROM foods ORDER BY calories ASC';
             break;
         case 'caloriesLH':
-            $query = ' SELECT foodID, food, cost,calories FROM foods ORDER BY calories DESC';
+            $query = ' SELECT foodID, food, cost,calories, gluten, vegetarian, vegan FROM foods ORDER BY calories DESC';
             break;
     }
 }else{
@@ -131,9 +131,9 @@ if (isset($_POST['manage'])){
         echo "<a href=\"fooditems.php?food_id=$food_id\">".$row['food']. "</a><br>";
         echo "<p> Cost: ".$row['cost'];
         echo "<p> Calories: ".$row['calories'];
-        echo"<p> Vegan:".$row['Vegan'];
-        echo"<p> Vegetarian:".$row['Vegetarian'];
-        echo"<p> Gluten Free: ".$row['Gluten Free'];
+        echo"<p> Vegan:".$row['vegan'];
+        echo"<p> Vegetarian:".$row['vegetarian'];
+        echo"<p> Gluten Free: ".$row['gluten'];
         echo "<br><br>";
         $_=$_+1;
 }
