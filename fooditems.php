@@ -5,6 +5,11 @@ if(mysqli_connect_errno()){
 else{
     echo " ";
 }
+
+$item_id=$_GET['food_id'];
+$this_query= "SELECT foods.foodID, foods.food, foods.cost, foods.calories, foods.vegan, foods.vegetarian, foods.gluten, stocks.availability FROM foods, stocks WHERE foods.availabilityID=stocks.availabilityID AND foodID='"  .$item_id. "'";
+$this_results=mysqli_query($con, $this_query);
+$this_query_results=mysqli_fetch_assoc($this_results);
 ?>
 
 
@@ -34,32 +39,13 @@ else{
 </header>
 </body>
 <?php
-if (isset($_POST['search'])) {
-    $search = $_POST['search'];
-    $query1 = "SELECT * FROM foods WHERE food LIKE '%$search%'";
-    $query = mysqli_query($con, $query1);
-    $count = mysqli_num_rows($query);
-    if ($count == 0) {
-        echo "There was no search results!";
-
-    } else {
-        $_=1;
-        while($row=mysqli_fetch_array($query)){
-            $food_id=$row['foodID'];
-            $food=$row['food'];
-            echo"<p> $_.Food Name:<a href=\"fooditems.php?food_id=$food_id\">$food</a>";
-            echo "<p> Cost:".$row['cost'];
-            echo "<p> Calories:".$row['calories'];
-            echo"<p> Vegan:".$row['Vegan'];
-            echo"<p> Vegetarian:".$row['Vegetarian'];
-            echo"<p> Gluten Free: ".$row['Gluten Free'];
-            echo "<br><br>";
-            $_=$_+1;
-        }
-
-
-    }
-}
+$food=$this_query_results['food'];
+echo"<p><img src=\"images/$food.jpg\" width='150px' height='150px'></p>";
+echo $this_query_results['food'];
+echo "<p> Cost: ".$this_query_results['cost'];
+    echo "<p> Calories: ".$this_query_results['calories'];
+    echo"<p> Vegan:".$this_query_results['vegan'];
+    echo"<p> Vegetarian:".$this_query_results['vegetarian'];
+    echo"<p> Gluten Free: ".$this_query_results['gluten'];
+    echo "<br><br>";
 ?>
-
-
