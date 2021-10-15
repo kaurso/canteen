@@ -61,7 +61,7 @@ many dishes that are from other cultures!</p>
 <main>
 
     <h2> Search an item</h2>
-    <form action= "fooditems.php" method="post">
+    <form action= "search.php" method="post">
         <input type="text" name = "search">
         <input type="submit" value="Search">
     </form>
@@ -111,7 +111,7 @@ if (isset($_POST['manage'])){
             $query = ' SELECT foodID, food, cost,calories, gluten, vegetarian, vegan FROM foods ORDER BY calories ASC';
             break;
         case 'caloriesLH':
-            $query = ' SELECT foodID, food, cost,calories, gluten, vegetarian, vegan FROM foods ORDER BY calories DESC';
+            $query = ' SELECT foodID, food, cost,calories,gluten, vegetarian, vegan FROM foods ORDER BY calories DESC';
             break;
     }
 }else{
@@ -131,9 +131,6 @@ if (isset($_POST['manage'])){
         echo "<a href=\"fooditems.php?food_id=$food_id\">".$row['food']. "</a><br>";
         echo "<p> Cost: ".$row['cost'];
         echo "<p> Calories: ".$row['calories'];
-        echo"<p> Vegan:".$row['vegan'];
-        echo"<p> Vegetarian:".$row['vegetarian'];
-        echo"<p> Gluten Free: ".$row['gluten'];
         echo "<br><br>";
         $_=$_+1;
 }

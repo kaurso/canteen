@@ -47,7 +47,7 @@ $this_drinks_record=mysqli_fetch_assoc($this_drinks_result);
 </header>
 </body>
 
-<br><br><br><br><br><br><br>
+<br><br>
 <h2 id="headings">Our Drink Menu!</h2>
 </div>
 <main>
@@ -55,7 +55,7 @@ $this_drinks_record=mysqli_fetch_assoc($this_drinks_result);
     <div id="search">
     <h2> Search an item</h2>
 
-    <form action= "drinkitems.php" method="post">
+    <form action= "searchd.php" method="post">
         <input type="text" name = "search">
         <input type="submit" value="Search">
     </form>
@@ -118,19 +118,21 @@ $results = mysqli_query( $con, $query );
 </div>
 
 <main>
+    <div class="itemimages">
     <?php
-    $_=1;
     while($row=mysqli_fetch_array($results)){
+        echo '<div class="placement">';
         $drink_id=$row['drinkID'];
         $drink=$row['drink'];
         echo"<p><img src=\"images/$drink.jpg\" width='150px' height='150px'></p>";
-        echo"<p> $_.Drink Name: <a href=\"drinkitems.php?drink_id=$drink_id\">$drink</a>";
+        echo"<p> Drink Name: <a href=\"drinkitems.php?drink_id=$drink_id\">$drink</a>";
         echo "<p> Cost: ".$row['cost'];
         echo "<p> Calories: ".$row['calories'];
         echo "<br><br><br><br>";
-        $_=$_+1;
+        echo'</div>';
     }
     ?>
+    </div>
 </main>
 
 </html>
