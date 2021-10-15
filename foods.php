@@ -119,12 +119,11 @@ if (isset($_POST['manage'])){
 }
 ?>
 <main>
-    <div id="FDimages">
+    <div class="itemimages">
     <?php
     $results = mysqli_query( $con, $query );
-
-    $_=1;
     while($row=mysqli_fetch_array($results)){
+        echo '<div class="placement">';
         $food_id=$row['foodID'];
         $food=$row['food'];
         echo"<p><img src=\"images/$food.jpg\" width='150px' height='150px'></p>";
@@ -132,7 +131,7 @@ if (isset($_POST['manage'])){
         echo "<p> Cost: ".$row['cost'];
         echo "<p> Calories: ".$row['calories'];
         echo "<br><br>";
-        $_=$_+1;
+        echo'</div>';
 }
 ?>
     </div>
