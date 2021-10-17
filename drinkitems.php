@@ -5,7 +5,13 @@ if(mysqli_connect_errno()){
 else{
     echo " ";
 }
+
+$item_id=$_GET['drink_id'];
+$this_query= "SELECT drinks.drinkID, drinks.drink, drinks.cost, drinks.calories, stocks.availability FROM drinks, stocks WHERE drinks.availabilityID=stocks.availabilityID AND drinkID='"  .$item_id. "'";
+$this_results=mysqli_query($con, $this_query);
+$this_query_results=mysqli_fetch_assoc($this_results);
 ?>
+
 
     <!DOCTYPE html>
     <html lang="en">
@@ -17,44 +23,33 @@ else{
     </head>
 
     <body>
-    <div id="logo">
-        <a href="index.php"><img class="logo" src="images/WGC.png" width="125px" height="125px" alt="Image of logo"></a>
-    </div>
-    <header>
-        <nav>
-            <ul class="nav_links">
-                <li> <a href='index.php'> HOME </a></li>
-                <li> <a href='drinks.php'> DRINKS </a></li>
-                <li> <a href='foods.php'> FOOD </a></li>
-                <li> <a href='specials.php'> WEEKLY SPECIALS</a></li>
-            </ul>
-        </nav>
-        <a class="cta" href="contact.php"><button>Contact</button></a>
-    </header>
-    </body>
-<?php
-if (isset($_POST['search'])) {
-    $search = $_POST['search'];
-    $query1 = "SELECT * FROM drinks WHERE drink LIKE '%$search%'";
-    $query = mysqli_query($con, $query1);
-    $count = mysqli_num_rows($query);
-    if ($count == 0) {
-        echo "There was no search results!";
-
-    } else {
-        $_=1;
-        while($row=mysqli_fetch_array($query)){
-            $drink_id=$row['drinkID'];
-            $drink=$row['drink'];
-            echo"<p> $_.Drink Name:<a href=\"drinkitems.php?drink_id=$drink_id\">$drink</a>";
-            echo "<p> Cost:".$row['cost'];
-            echo "<p> Calories:".$row['calories'];
+        <div id="logo">
+            <a href="index.php"><img class="logo" src="images/WGC.png" width="125px" height="125px" alt="Image of logo"></a>
+        </div>
+        <main>
+        <header>
+            <nav>
+                <!-- Nav bar with links to all pages-->
+                <ul class="nav_links">
+                    <li> <a href='index.php'> HOME </a></li>
+                    <li> <a href='drinks.php'> DRINKS </a></li>
+                    <li> <a href='foods.php'> FOOD </a></li>
+                    <li> <a href='specials.php'> WEEKLY SPECIALS</a></li>
+                </ul>
+            </nav>
+            <a class="cta" href="contact.php"><button>Contact</button></a>
+        </header>
+            <!-- Displaying the information of each drink item-->
+            <?php
+            $drink=$this_query_results['drink'];
+            echo"<p><img src=\"images/$drink.jpg\" width='150px' height='150px'></p>";
+            echo $this_query_results['drink'];
+            echo "<p> Cost: ".$this_query_results['cost'];
+            echo "<p> Calories: ".$this_query_results['calories'];
+            echo"<p> Availability: ".$this_query_results['availability'];
             echo "<br><br>";
-            $_=$_+1;
-        }
+            ?>
+        </main>
+    </body>
 
-
-    }
-}
-
-?>
+</html>

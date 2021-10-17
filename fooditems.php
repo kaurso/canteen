@@ -12,7 +12,6 @@ $this_results=mysqli_query($con, $this_query);
 $this_query_results=mysqli_fetch_assoc($this_results);
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,26 +25,33 @@ $this_query_results=mysqli_fetch_assoc($this_results);
 <div id="logo">
     <a href="index.php"><img class="logo" src="images/WGC.png" width="125px" height="125px" alt="Image of logo"></a>
 </div>
-<header>
-    <nav>
-        <ul class="nav_links">
-            <li> <a href='index.php'> HOME </a></li>
-            <li> <a href='drinks.php'> DRINKS </a></li>
-            <li> <a href='foods.php'> FOOD </a></li>
-            <li> <a href='specials.php'> WEEKLY SPECIALS</a></li>
-        </ul>
-    </nav>
-    <a class="cta" href="contact.php"><button>Contact</button></a>
-</header>
+<main>
+    <header>
+        <!-- Nav Bar links and div tags that are connected to styling sheet-->
+        <nav>
+            <ul class="nav_links">
+                <li> <a href='index.php'> HOME </a></li>
+                <li> <a href='drinks.php'> DRINKS </a></li>
+                <li> <a href='foods.php'> FOOD </a></li>
+                <li> <a href='specials.php'> WEEKLY SPECIALS</a></li>
+            </ul>
+        </nav>
+        <a class="cta" href="contact.php"><button>Contact</button></a>
+    </header>
+
+    <!-- Displaying the information of each food item-->
+        <?php
+        $food=$this_query_results['food'];
+        echo"<p><img src=\"images/$food.jpg\" width='150px' height='150px'></p>";
+        echo $this_query_results['food'];
+        echo "<p> Cost: ".$this_query_results['cost'];
+        echo "<p> Calories: ".$this_query_results['calories'];
+        echo"<p> Vegan:".$this_query_results['vegan'];
+        echo"<p> Vegetarian:".$this_query_results['vegetarian'];
+        echo"<p> Gluten Free: ".$this_query_results['gluten'];
+        echo"<p> Availability: ".$this_query_results['availability'];
+        echo "<br><br>";
+        ?>
+    </main>
 </body>
-<?php
-$food=$this_query_results['food'];
-echo"<p><img src=\"images/$food.jpg\" width='150px' height='150px'></p>";
-echo $this_query_results['food'];
-echo "<p> Cost: ".$this_query_results['cost'];
-    echo "<p> Calories: ".$this_query_results['calories'];
-    echo"<p> Vegan:".$this_query_results['vegan'];
-    echo"<p> Vegetarian:".$this_query_results['vegetarian'];
-    echo"<p> Gluten Free: ".$this_query_results['gluten'];
-    echo "<br><br>";
-?>
+</html>
