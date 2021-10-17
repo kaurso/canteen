@@ -10,15 +10,6 @@ else{
 $all_specials_query = "SELECT * FROM specials";
 $all_specials_result = mysqli_query($con, $all_specials_query);
 
-if (isset($_GET['special'])){
-    $id = $_GET['special'];
-}else{
-    $id= 0;
-}
-
-$this_specials_query= "SELECT special, cost, calories FROM specials WHERE specialsID='"  .$id. "'";
-$this_specials_result=mysqli_query($con,$this_specials_query);
-$this_specials_record=mysqli_fetch_assoc($this_specials_result);
 ?>
 
 <!DOCTYPE html>
@@ -47,37 +38,7 @@ $this_specials_record=mysqli_fetch_assoc($this_specials_result);
 </header>
 </body>
 
-<h2>Specials Information</h2>
-<?php
-echo"<p> Special Combo: ".$this_specials_record['special']."<br>";
-echo"<p> Cost: ".$this_specials_record['cost']."<br>";
-echo"<p> Calories: ".$this_specials_record['calories']."<br>";
-?>
 
-<main>
-    <h2> Search an item</h2>
-    <form action= "" method="post">
-        <input type="text" name = "search">
-        <input type="submit" value="Search">
-    </form>
-    <?php
-    if(isset($_POST['search'])){
-        $search = $_POST['search'];
-        $query1 = "SELECT * FROM specials WHERE special LIKE '%$search%'";
-        $query = mysqli_query($con, $query1);
-        $count = mysqli_num_rows($query);
-        if($count == 0){
-            echo "There was no search results!";
-
-        }else{
-            while($row = mysqli_fetch_array($query)){
-                echo $row ['special'];
-                echo"<br>";
-            }
-        }
-    }
-    ?>
-</main>
 
 
 <main>
@@ -85,8 +46,15 @@ echo"<p> Calories: ".$this_specials_record['calories']."<br>";
     $_=1;
     while($row=mysqli_fetch_array($all_specials_result)){
         $special_id=$row['specialsID'];
-        $special=$row['special'];
-        echo"<p> $_.Special Combo:<a href=\"specialitems.php?special_id=$special_id\">$special</a>";
+        $this_specials_query= "SELECT specials.specialsID, specials.cost, specials.calories, foods.food, drinks.drink FROM specials,foods,drinks WHERE foods.foodID=specials.foodID AND drinks.drinkID=specials.drinkID AND specialsID='" .$special_id."'";
+        $this_specials_result=mysqli_query($con,$this_specials_query);
+        $this_specials_record=mysqli_fetch_assoc($this_specials_result);
+        $food=$this_specials_record['food'];
+        $drink=$this_specials_record['drink'];
+        $food_id=$row['foodID'];
+        $drink_id=$row['drinkID'];
+        echo"<p> Food:<a href=\"fooditems.php?food_id=$food_id\">$food</a>";
+        echo"<p> Drink:<a href=\"drinkitems.php?drink_id=$drink_id\">$drink</a>";
         echo "<p> Cost:".$row['cost'];
         echo "<p> Calories:".$row['calories'];
         echo "<br><br>";
@@ -96,4 +64,3 @@ echo"<p> Calories: ".$this_specials_record['calories']."<br>";
 </main>
 
 </html>
-
